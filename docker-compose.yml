@@ -1,23 +1,56 @@
-version: '3'
+version: '3.2'
 
 services:
-  my_nodered:
+  mynodered:
     build: docker/nodered
     ports:
-    - "1899:1880"
+      - "1899:1880"
     expose:
-    - "1899"
+      - "1899"
     volumes:
-    - nodered_volume:/data
+      - type: volume
+        source: nodered_volume
+        target: /data
 
-  mongo:
+  mymongo:
     image: "mongo:3.6.3"
     ports:
-     - "27017:27017"
+      - "27017:27017"
     volumes:
-     - mongo_volume:/data/db
-     - mongo_volume:/data/configdb
+      - type: volume
+        source: mongo_volume
+        target: /data/db
+      
+      - type: volume
+        source: mongo_volume
+        target: /data/configdb
+     
+  mypostgresql:
+    build: docker/postgresql
+    ports:
+      - "7432:5432"
+    restart: always
+    environment:
+      POSTGRES_USER: trantek
+      POSTGRES_PASSWORD: svv123svv
+    volumes:
+      - type: volume
+        source: postgresql_volum
+        target: /var/lib/postgresql/data
+
+  datascience-notebook:
+    build: docker/jupyter
+    volumes:
+      - type: bind
+        source: ./notebooks
+        target: /home/jovyan/work
+    ports:
+      - 9999:8888
+    container_name:   datascience-notebook-container
+
 
 volumes:
- nodered_volume:
- mongo_volume:
+  nodered_volume:
+  mongo_volume:
+  postgresql_volum:
+
