@@ -1,16 +1,19 @@
-version: '3.2'
+version: '3.4'
 
 services:
   mynodered:
-    build: docker/nodered
+    build: 
+      context: ./docker/nodered
+      dockerfile: Dockerfile
     ports:
       - "1899:1880"
     expose:
-      - "1899"
+      - "1899"    
     volumes:
       - type: volume
         source: nodered_volume
         target: /data
+    container_name: nodered-trantek
 
   mymongo:
     image: "mongo:3.6.3"
@@ -24,7 +27,8 @@ services:
       - type: volume
         source: mongo_volume
         target: /data/configdb
-     
+    container_name:   mongo-trantek
+
   mypostgresql:
     build: docker/postgresql
     ports:
@@ -37,16 +41,17 @@ services:
       - type: volume
         source: postgresql_volum
         target: /var/lib/postgresql/data
+    container_name:   postgres-trantek
 
   datascience-notebook:
     build: docker/jupyter
     volumes:
       - type: bind
-        source: ./notebooks
+        source: ./work/notebooks
         target: /home/jovyan/work
     ports:
       - 9999:8888
-    container_name:   datascience-notebook-container
+    container_name:   jupyter-trantek
 
 
 volumes:
