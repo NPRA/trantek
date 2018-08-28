@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.2'
 
 services:
   mynodered:
@@ -13,7 +13,7 @@ services:
       - type: volume
         source: nodered_volume
         target: /data
-    container_name: nodered-trantek
+    container_name: trantek-nodered
 
   mymongo:
     image: "mongo:3.6.3"
@@ -27,7 +27,7 @@ services:
       - type: volume
         source: mongo_volume
         target: /data/configdb
-    container_name:   mongo-trantek
+    container_name:   trantek-mongodb
 
   mypostgresql:
     build: docker/postgresql
@@ -41,21 +41,34 @@ services:
       - type: volume
         source: postgresql_volum
         target: /var/lib/postgresql/data
-    container_name:   postgres-trantek
+    container_name:   trantek-postgres
 
-  datascience-notebook:
+  mynotebook:
     build: docker/jupyter
     volumes:
       - type: bind
-        source: ./work/notebooks
+        source: ./work/notebooks/
         target: /home/jovyan/work
     ports:
       - 9999:8888
-    container_name:   jupyter-trantek
+    container_name:   trantek-jupyter
 
+  mypgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=trantek@npra.io
+      - PGADMIN_DEFAULT_PASSWORD=svv123svv
+    ports:
+      - 8080:80
+    volumes:
+      - type: volume
+        source: pgadmin_volum
+        target: /var/lib/pgadmin
+    container_name:   trantek-pgadmin
 
 volumes:
   nodered_volume:
   mongo_volume:
   postgresql_volum:
+  pgadmin_volum:
 
