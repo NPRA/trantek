@@ -14,7 +14,13 @@ I hovedsak brukes docker compose for å styre containerene. Trantek bruker ikke 
 - NodeRed: **http://localhost:1899**
 - Postgresql: 7432 på localhost - 5432 internt i dockernettverket
 - Mongodb: 27017 på localhost 
+- Mongodb express 8081 på localhost
 
+Default brukernavn og passord:
+Brukernavn: trantek
+Passord: svv123svv
+
+**NB**, dette er ikke sikre passord og er kun beregnet for kjøring på localhost. Sett opp brannmur til å blokkere 9999, 1899, 7432 og 27017 for andre enn localhost. For en serverinstans bruker SSH tunnel for å koble opp mot localhost.
 
 ## Oppsett av apper
 
