@@ -66,6 +66,14 @@ services:
         target: /var/lib/pgadmin
     container_name:   trantek-pgadmin
 
+  mymongoexpress:
+    image: mongo-express
+    environment: 
+      - ME_CONFIG_MONGODB_SERVER=trantek-mongodb
+    ports:
+      - 8081:8081
+    container_name: trantek-mongoexpress
+
 volumes:
   nodered_volume:
   mongo_volume:
