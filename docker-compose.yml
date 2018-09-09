@@ -10,8 +10,8 @@ services:
     expose:
       - "1899"    
     volumes:
-      - type: volume
-        source: nodered_volume
+      - type: bind
+        source: ./work/nodered/
         target: /data
     container_name: trantek-nodered
 
@@ -48,7 +48,7 @@ services:
     volumes:
       - type: bind
         source: ./work/notebooks/
-        target: /home/jovyan/work
+        target: /home/jovyan
     ports:
       - 9999:8888
     container_name:   trantek-jupyter
