@@ -72,6 +72,7 @@ services:
       - ME_CONFIG_MONGODB_SERVER=trantek-mongodb
     ports:
       - 8081:8081
+    restart: always
     container_name: trantek-mongoexpress
 
 volumes:
