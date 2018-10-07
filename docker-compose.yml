@@ -10,8 +10,8 @@ services:
     expose:
       - "1899"    
     volumes:
-      - type: bind
-        source: ./work/nodered/
+      - type: volume
+        source: nodered_volume
         target: /data
     container_name: trantek-nodered
 
@@ -76,6 +76,7 @@ services:
     container_name: trantek-mongoexpress
 
 volumes:
+  nodered_volume:
   mongo_volume:
   postgresql_volum:
   pgadmin_volum:
