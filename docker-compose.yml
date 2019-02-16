@@ -1,4 +1,4 @@
-version: '2.3'
+version: '2'
 
 services:
   mynodered:
@@ -10,9 +10,7 @@ services:
     expose:
       - "1899"    
     volumes:
-      - type: volume
-        source: nodered_volume
-        target: /data
+      - nodered_volume:/data
     container_name: trantek-nodered
 
   mymongo:
@@ -20,13 +18,8 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - type: volume
-        source: mongo_volume
-        target: /data/db
-      
-      - type: volume
-        source: mongo_volume
-        target: /data/configdb
+      - mongo_volume:/data/db
+      - mongo_volume:/data/configdb
     container_name:   trantek-mongodb
 
   mypostgresql:
@@ -38,17 +31,13 @@ services:
       POSTGRES_USER: trantek
       POSTGRES_PASSWORD: svv123svv
     volumes:
-      - type: volume
-        source: postgresql_volum
-        target: /var/lib/postgresql/data
+      - postgresql_volum:/var/lib/postgresql/data
     container_name:   trantek-postgres
 
   mynotebook:
     build: docker/jupyter
     volumes:
-      - type: bind
-        source: ./work/notebooks/
-        target: /home/jovyan
+      - ./work/notebooks/:/home/jovyan
     ports:
       - 9999:8888
     container_name:   trantek-jupyter
@@ -61,9 +50,7 @@ services:
     ports:
       - 8080:80
     volumes:
-      - type: volume
-        source: pgadmin_volum
-        target: /var/lib/pgadmin
+      - pgadmin_volum:/var/lib/pgadmin
     container_name:   trantek-pgadmin
 
   mymongoexpress:
