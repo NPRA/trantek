@@ -37,7 +37,7 @@ services:
   mynotebook:
     build: docker/jupyter
     volumes:
-      - ./work/notebooks/:/home/jovyan
+      - notebook_volume:/home/jovyan
     ports:
       - 9999:8888
     container_name:   trantek-jupyter
@@ -64,6 +64,7 @@ services:
 
 volumes:
   nodered_volume:
+  notebook_volume:
   mongo_volume:
   postgresql_volum:
   pgadmin_volum:
