@@ -1,29 +1,35 @@
-# Trantek - teknologi plattform for fagfolk
+# Trantek - A simple dataanalytics platform for engineers
 
-Versjon 0.1
+Version 0.9
 
-Som en del av FoU programmet TRAN ble det utviklet metodikk og verktøy for analyse av trafikktekniske data. Dette settet med docker containere og script er bygd på resultatene av programmet. Trantek pakken er bare flere av verktøyene satt sammen til en pakke som gjør det enklere å installere nødvendige programmer på en enkel og grei måte.
+This is a setup of an analytics platform for the NordicWay II project. The platform supports data storage, analysis and presentation of results. The project relies on external queing services like the NordicWay II interchange or equals for data ingestion. Hence the Docker stack does not contain queuing functionality.
 
-## Oppsett av docker containere
+The setup is for running on a that the user uses SSH to logonto and create tunnels. All ports are only exposed to the local host for security reasons. Hence all data on the move is moved in an encryptes SSH tunnel. 
 
-I hovedsak brukes docker compose for å styre containerene. Trantek bruker ikke docker på en kreativ måte for å gjøre dataanalyse og informasjons tilvirkning enklere. I noen tilfeller betyr dette at vi bryter med docker best practise, det gjøres for å få en så enkel dataanalyseplattform som mulig.
+## Docker config
 
-## Porter og oppkobling
-- Jupyter lab: **http://localhost:9999/lab**
-- Jupyter notebook **http://localhost:9999**
-- NodeRed: **http://localhost:1899**
-- Postgresql: 7432 på localhost - 5432 internt i dockernettverket
-- Mongodb: 27017 på localhost 
-- Mongodb express 8081 på localhost
+The Docker compose functionality is used to create a stack of applications that together becomes the Trantek analytics platform. All containers except for PostgreSQL uses volumes for mounting the data. After practical testing on geographic data mocing the storage for the database is moved to SSD storage on the server (/media/ssd/docker_PG11). The rest works like magic :) Just go into the logfiles of trantek-jupyter to find the access token. 
 
-Default brukernavn og passord:
-Brukernavn: trantek
-Passord: svv123svv
+## Port and web access after using an ssh-tunnel
+- Jupyter lab: **http://localhost:7002/lab**
+- Jupyter notebook **http://localhost:7002**
+- NodeRed: **http://localhost:7001**
+- Postgresql: 7004 at localhost - 5432@ trantek-postgres
+- Mongodb: 7003 at localhost 
+- Mongodb express **http://localhost:7005**
+- PGAdmin4 **http://localhost:7006**
 
-**NB**, dette er ikke sikre passord og er kun beregnet for kjøring på localhost. Sett opp brannmur til å blokkere 9999, 1899, 7432 og 27017 for andre enn localhost. For en serverinstans bruker SSH tunnel for å koble opp mot localhost.
+## Default passwords 
+(for this single user engineering stack localhost security is used)
 
-## Oppsett av apper
+PostgreSQL
+- user: trantek
+- password: svv123svv
 
-Enkelte program egner seg ikke som docker applikasjone og må følgelig installeres lokalt. I mappen **lenker_til_apper** finnes liste over programmer og tips til installasjon.
+PGAdmin 4
+- user: trantek@npra.io
+- password: svv123svv
 
-20180828 Tomas Levin
+To enable per application security go into the Docker-compose file and configure therafter.
+
+20190217 Tomas Levin
