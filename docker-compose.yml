@@ -7,18 +7,16 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - "1899:1880"
-    expose:
-      - "1899"    
+      - "127.0.0.1:7001:1880"
     volumes:
       - nodered_volume:/data
     container_name: trantek-nodered
 
   mymongo:
-    image: "mongo:3.6.3"
+    image: "mongo:4.0"
     restart: always
     ports:
-      - "27017:27017"
+      - "127.0.0.1:7003:27017"
     volumes:
       - mongo_volume:/data/db
       - mongo_volume:/data/configdb
@@ -27,7 +25,7 @@ services:
   mypostgresql:
     image: "mdillon/postgis:11"
     ports:
-      - "7432:5432"
+      - "127.0.0.1:7004:5432"
     restart: always
     environment:
       POSTGRES_USER: trantek
@@ -42,7 +40,7 @@ services:
     volumes:
       - notebook_volume:/home/jovyan
     ports:
-      - 9999:8888
+      - 127.0.0.1:7002:8888
     container_name:   trantek-jupyter
 
   mypgadmin:
@@ -52,7 +50,7 @@ services:
       - PGADMIN_DEFAULT_EMAIL=trantek@npra.io
       - PGADMIN_DEFAULT_PASSWORD=svv123svv
     ports:
-      - 8080:80
+      - 127.0.0.1:7006:80
     volumes:
       - pgadmin_volum:/var/lib/pgadmin
     container_name:   trantek-pgadmin
@@ -63,8 +61,13 @@ services:
     environment: 
       - ME_CONFIG_MONGODB_SERVER=trantek-mongodb
     ports:
-      - 8081:8081
+      - 127.0.0.1:7005:8081
     restart: always
     container_name: trantek-mongoexpress
 
+volumes:
+  nodered_volume:
+  notebook_volume:
+  mongo_volume:
+  pgadmin_volum:
 
