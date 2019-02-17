@@ -5,6 +5,7 @@ services:
     build: 
       context: ./docker/nodered
       dockerfile: Dockerfile
+    restart: always
     ports:
       - "1899:1880"
     expose:
@@ -15,6 +16,7 @@ services:
 
   mymongo:
     image: "mongo:3.6.3"
+    restart: always
     ports:
       - "27017:27017"
     volumes:
