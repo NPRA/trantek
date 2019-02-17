@@ -31,11 +31,12 @@ services:
       POSTGRES_USER: trantek
       POSTGRES_PASSWORD: svv123svv
     volumes:
-      - postgresql_volum:/var/lib/postgresql/data
+      - /media/ssd/docker_PG11:/var/lib/postgresql/data
     container_name:   trantek-postgres
 
   mynotebook:
     build: docker/jupyter
+    restart: always
     volumes:
       - notebook_volume:/home/jovyan
     ports:
@@ -44,6 +45,7 @@ services:
 
   mypgadmin:
     image: dpage/pgadmin4
+    restart: always
     environment:
       - PGADMIN_DEFAULT_EMAIL=trantek@npra.io
       - PGADMIN_DEFAULT_PASSWORD=svv123svv
@@ -55,6 +57,7 @@ services:
 
   mymongoexpress:
     image: mongo-express
+    restart: always
     environment: 
       - ME_CONFIG_MONGODB_SERVER=trantek-mongodb
     ports:
