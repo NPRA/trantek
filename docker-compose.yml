@@ -62,10 +62,4 @@ services:
     restart: always
     container_name: trantek-mongoexpress
 
-volumes:
-  nodered_volume:
-  notebook_volume:
-  mongo_volume:
-  postgresql_volum:
-  pgadmin_volum:
 
