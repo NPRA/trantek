@@ -1,6 +1,6 @@
 # Trantek - A simple dataanalytics platform for engineers
 
-Version 0.9
+Version 1.0
 
 This is a setup of an analytics platform for the NordicWay II project. The platform supports data storage, analysis and presentation of results. The project relies on external queing services like the NordicWay II interchange or equals for data ingestion. Hence the Docker stack does not contain queuing functionality.
 
@@ -8,8 +8,9 @@ The setup is for running on a that the user uses SSH to logonto and create tunne
 
 ## Docker config
 
-The Docker compose functionality is used to create a stack of applications that together becomes the Trantek analytics platform. All containers except for PostgreSQL uses volumes for mounting the data. After practical testing on geographic data mocing the storage for the database is moved to SSD storage on the server (/media/ssd/docker_PG11). The rest works like magic :) Just go into the logfiles of trantek-jupyter to find the access token. 
+The Docker compose functionality is used to create a stack of applications that together becomes the Trantek analytics platform. All containers except for PostgreSQL uses volumes for mounting the data. After practical testing on geographic data moving the storage for the database is moved to SSD storage on the server (/media/ssd/docker_PG11). The rest works like magic :) Just go into the logfiles of trantek-jupyter to find the access token. 
 
+This version of the Trantek platform has been tested on Windows 10 and WSL2 Ubuntu 20.04 - and it works :)
 ## Port and web access after using an ssh-tunnel
 - Jupyter lab: **http://localhost:7002/lab**
 - Jupyter notebook **http://localhost:7002**
