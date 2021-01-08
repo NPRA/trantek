@@ -33,4 +33,4 @@ PGAdmin 4
 
 To enable per application security go into the Docker-compose file and configure therafter.
 
-20190217 Tomas Levin
+20210108 Tomas Levin
