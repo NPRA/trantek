@@ -1,4 +1,7 @@
-FROM nodered/node-red-docker
+FROM nodered/node-red:latest
+
+#FROM nodered/node-red-docker
+#Justering for å få inn Node red
 
 LABEL maintainer=tomas@levin.nu 
 
