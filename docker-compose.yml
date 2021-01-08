@@ -13,7 +13,7 @@ services:
     container_name: trantek-nodered
 
   mymongo:
-    image: "mongo:4.0"
+    image: "mongo:4.4"
     restart: always
     ports:
       - "127.0.0.1:7003:27017"
@@ -23,7 +23,8 @@ services:
     container_name:   trantek-mongodb
 
   mypostgresql:
-    image: "mdillon/postgis:11"
+    image: "postgis/postgis:12-master"
+    #image: "mdillon/postgis:11"
     ports:
       - "127.0.0.1:7004:5432"
     restart: always
@@ -37,6 +38,8 @@ services:
   mynotebook:
     build: docker/jupyter
     restart: always
+    environment:
+      - PASSWORD=svv123svv
     volumes:
       - notebook_volume:/home/jovyan
     ports:
